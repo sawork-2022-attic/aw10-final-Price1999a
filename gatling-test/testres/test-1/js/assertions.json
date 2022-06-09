@@ -1,0 +1,10 @@
+{
+  "simulation": "testaw10.Test",
+  "simulationId": "test",
+  "start": 1654782286316,
+  "description": "1",
+  "scenarios": ["Scenario Name"],
+  "assertions": [
+
+  ]
+}
