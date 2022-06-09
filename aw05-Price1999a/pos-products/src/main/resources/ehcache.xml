@@ -1,0 +1,38 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <!--defaultCache:echcache的默认缓存策略 -->
+    <!--
+        maxElementsInMemory：缓存多少个对象。
+        eternal：是否做持久化处理。
+        timeToIdleSeconds：当前对象去访问缓存里面的对象时间间隔，单位是秒，超过120秒，从缓存中删除。
+        timeToLiveSeconds：当前对象从创建到在缓存里面的声明周期是多长时间，单位是秒，默认120秒，超过120秒，从缓存中删除。
+        maxElementsOnDisk：
+        diskExpiryThreadIntervalSeconds：
+        memoryStoreEvictionPolicy
+    -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="600"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+
+    <!-- 自定义缓存策略，自定义缓存策略的name属性值是users，定义多个缓存策略，name值是不可以相同的 -->
+    <cache name="jd"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           maxElementsOnDisk="10000000"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+</ehcache>

@@ -1,0 +1,15 @@
+server:
+  port: 8000
+eureka:
+  instance:
+    hostname: eureka-center
+    appname: eureka center
+  client:
+    registerWithEureka: false # 单点的时候设置为 false 禁止注册自身
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka
+  server:
+    enableSelfPreservation: false
+    evictionIntervalTimerInMs: 5000
+    renewalPercentThreshold: 0.49

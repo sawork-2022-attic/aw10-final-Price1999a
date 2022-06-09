@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    stream:
+      function:
+        bindings:
+          consumerOrder-in-0: order-todo
+      bindings:
+        order-todo:
+          group: main
+    function:
+      definition: consumerOrder

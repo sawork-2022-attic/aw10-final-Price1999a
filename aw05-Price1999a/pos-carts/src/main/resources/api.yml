@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  title: Carts
+  version: 1.0.0
+  license:
+    name: MIT
+#    http://xxx.com/api/v1/user, GET, 获取用户信息
+#    http://xxx.com/api/v1/user, POST, 新增用户信息
+#    http://xxx.com/api/v1/user, PUT,  修改用户信息
+#    http://xxx.com/api/v1/user, DELETE, 删除用户信息
+paths:
+  /cart:
+    get:
+      summary: List all products in cart
+      operationId: listCart
+      tags:
+        - cart
+      responses:
+        '200':
+          description: A paged array of products in carts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /cart/{productId}:
+    post:
+      summary: Add one product to Cart
+      operationId: addProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to add to Cart
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paged array of products in carts after add one product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    put:
+      summary: Modify one product's number in Cart
+      operationId: modifyProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to modify in Cart
+          schema:
+            type: string
+        - name: productNum
+          in: query
+          required: true
+          description: The new number of the product to modify in Cart
+          schema:
+            type: integer
+            minimum: 1 # 0留给delete方法
+      responses:
+        '200':
+          description: A paged array of products in carts after add one product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    delete:
+      summary: delete one product in Cart
+      operationId: deleteProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to delete in Cart
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paged array of products in carts after delete one product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /checkout:
+    get:
+      summary: check out product in Cart
+      operationId: checkout
+      tags:
+        - product
+      responses:
+        '200':
+          description: A paged array of products in carts after check out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        image:
+          type: string
+    Item:
+      type: object
+      required:
+        - quantity
+        - product
+      properties:
+        quantity:
+          type: integer
+          format: int32
+        product:
+          $ref: "#/components/schemas/Product"
+    Cart:
+      type: array
+      items:
+        $ref: "#/components/schemas/Item"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
