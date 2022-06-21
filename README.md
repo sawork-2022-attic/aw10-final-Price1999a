@@ -135,3 +135,13 @@ Please design tests/experiements to demostrate that your system fulfills such re
 
 而后者通过消息队列来实现了异步处理。是消息驱动的。
 
+## 功能备注 
+
+delivery微服务上开启了SSE功能
+
+使用例子：访问 `http://localhost:8080/delivery-sse/admin` 
+
+Server-Sent Events(SSE) 是一种服务器推送技术, 使客户端可以通过 HTTP 连接从服务器自动接收更新. 每个通知以文本流(文本应该为 utf-8)的形式发送, 并以一对换行符结尾.
+例如推特点赞数量实时更新就依赖于此。
+相较于传统的客户端定时轮询，他不需要建立连接HTTP连接的过程，因此更加节省服务器资源
+
